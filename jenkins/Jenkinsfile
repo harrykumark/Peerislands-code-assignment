@@ -1,0 +1,16 @@
+pipeline {
+  agent any
+  environment {
+    RESOURCE_GROUP = "peerisland-rg"
+    AKS_CLUSTER = "peerisland-aks"
+    ACR_NAME = "peerislandacr"
+    IMAGE_TAG = "v${env.BUILD_NUMBER}"
+  }
+  stages {
+    stage('Terraform') { steps { dir('infra'){ sh 'terraform init && terraform apply -auto-approve' } } }
+    stage('Checkov') { steps { sh 'jenkins/checkov-scan.sh' } }
+    stage('Build') { steps { sh 'jenkins/build-and-push.sh' } }
+    stage('Deploy') { steps { sh 'jenkins/deploy.sh' } }
+    stage('Report') { steps { sh 'python3 app/report.py' } }
+  }
+}

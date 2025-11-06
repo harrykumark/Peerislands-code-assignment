@@ -1,0 +1,3 @@
+prefix = "peerisland"
+location = "eastus"
+resource_group_name = "peerisland-rg"
