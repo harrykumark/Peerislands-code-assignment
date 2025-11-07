@@ -1,1 +1,5 @@
 replicaCount: 2
+image:
+  repository: peerislandacr.azurecr.io/sampleapp
+  tag: latest
+  pullPolicy: Always

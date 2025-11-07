@@ -1,1 +1,602 @@
-Placeholder scan report.
+
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.2.490 
+
+terraform scan results:
+
+Passed checks: 13, Failed checks: 17, Skipped checks: 0
+
+Check: CKV_AZURE_137: "Ensure ACR admin account is disabled"
+	PASSED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/bc-azure-137
+[0mCheck: CKV_AZURE_138: "Ensures that ACR disables anonymous pulling of images"
+	PASSED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/ensure-azure-acr-disables-anonymous-image-pulling
+[0mCheck: CKV_AZURE_163: "Enable vulnerability scanning for container images."
+	PASSED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-163
+[0mCheck: CKV_AZURE_6: "Ensure AKS has an API Server Authorized IP Ranges enabled"
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-3
+[0mCheck: CKV_AZURE_8: "Ensure Kubernetes Dashboard is disabled"
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-5
+[0mCheck: CKV_AZURE_115: "Ensure that AKS enables private clusters"
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/ensure-that-aks-enables-private-clusters
+[0mCheck: CKV_AZURE_168: "Ensure Azure Kubernetes Cluster (AKS) nodes should use a minimum number of 50 pods."
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/azr-kubernetes-168
+[0mCheck: CKV_AZURE_7: "Ensure AKS cluster has Network Policy configured"
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-4
+[0mCheck: CKV_AZURE_143: "Ensure AKS cluster nodes do not have public IP addresses"
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azure-143
+[0mCheck: CKV_AZURE_169: "Ensure Azure Kubernetes Cluster (AKS) nodes use scale sets"
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/azr-kubernetes-169
+[0mCheck: CKV_AZURE_5: "Ensure RBAC is enabled on AKS clusters"
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-2
+[0mCheck: CKV_AZURE_246: "Ensure Azure AKS cluster HTTP application routing is disabled"
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/bc-azure-246
+[0mCheck: CKV2_AZURE_29: "Ensure AKS cluster has Azure CNI networking enabled"
+	PASSED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-2-29
+[0mCheck: CKV_AZURE_237: "Ensure dedicated data endpoints are enabled."
+	FAILED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-237
+[0m
+		[37m23 | [33mresource "azurerm_container_registry" "acr" {
+		[37m24 | [33m  name                = "peerislandacr"
+		[37m25 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m26 | [33m  location            = azurerm_resource_group.rg.location
+		[37m27 | [33m  sku                 = "Premium"  # Premium required for retention_policy type
+		[37m28 | [33m  admin_enabled       = false
+		[37m29 | [33m
+		[37m30 | [33m  network_rule_set {
+		[37m31 | [33m    default_action = "Deny"
+		[37m32 | [33m  }
+		[37m33 | [33m
+		[37m34 | [33m  lifecycle {
+		[37m35 | [33m    ignore_changes = [admin_enabled]
+		[37m36 | [33m  }
+		[37m37 | [33m}
+
+Check: CKV_AZURE_166: "Ensure container image quarantine, scan, and mark images verified"
+	FAILED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-166
+[0m
+		[37m23 | [33mresource "azurerm_container_registry" "acr" {
+		[37m24 | [33m  name                = "peerislandacr"
+		[37m25 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m26 | [33m  location            = azurerm_resource_group.rg.location
+		[37m27 | [33m  sku                 = "Premium"  # Premium required for retention_policy type
+		[37m28 | [33m  admin_enabled       = false
+		[37m29 | [33m
+		[37m30 | [33m  network_rule_set {
+		[37m31 | [33m    default_action = "Deny"
+		[37m32 | [33m  }
+		[37m33 | [33m
+		[37m34 | [33m  lifecycle {
+		[37m35 | [33m    ignore_changes = [admin_enabled]
+		[37m36 | [33m  }
+		[37m37 | [33m}
+
+Check: CKV_AZURE_167: "Ensure a retention policy is set to cleanup untagged manifests."
+	FAILED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-167
+[0m
+		[37m23 | [33mresource "azurerm_container_registry" "acr" {
+		[37m24 | [33m  name                = "peerislandacr"
+		[37m25 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m26 | [33m  location            = azurerm_resource_group.rg.location
+		[37m27 | [33m  sku                 = "Premium"  # Premium required for retention_policy type
+		[37m28 | [33m  admin_enabled       = false
+		[37m29 | [33m
+		[37m30 | [33m  network_rule_set {
+		[37m31 | [33m    default_action = "Deny"
+		[37m32 | [33m  }
+		[37m33 | [33m
+		[37m34 | [33m  lifecycle {
+		[37m35 | [33m    ignore_changes = [admin_enabled]
+		[37m36 | [33m  }
+		[37m37 | [33m}
+
+Check: CKV_AZURE_233: "Ensure Azure Container Registry (ACR) is zone redundant"
+	FAILED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/bc-azure-233
+[0m
+		[37m23 | [33mresource "azurerm_container_registry" "acr" {
+		[37m24 | [33m  name                = "peerislandacr"
+		[37m25 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m26 | [33m  location            = azurerm_resource_group.rg.location
+		[37m27 | [33m  sku                 = "Premium"  # Premium required for retention_policy type
+		[37m28 | [33m  admin_enabled       = false
+		[37m29 | [33m
+		[37m30 | [33m  network_rule_set {
+		[37m31 | [33m    default_action = "Deny"
+		[37m32 | [33m  }
+		[37m33 | [33m
+		[37m34 | [33m  lifecycle {
+		[37m35 | [33m    ignore_changes = [admin_enabled]
+		[37m36 | [33m  }
+		[37m37 | [33m}
+
+Check: CKV_AZURE_165: "Ensure geo-replicated container registries to match multi-region container deployments."
+	FAILED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-165
+[0m
+		[37m23 | [33mresource "azurerm_container_registry" "acr" {
+		[37m24 | [33m  name                = "peerislandacr"
+		[37m25 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m26 | [33m  location            = azurerm_resource_group.rg.location
+		[37m27 | [33m  sku                 = "Premium"  # Premium required for retention_policy type
+		[37m28 | [33m  admin_enabled       = false
+		[37m29 | [33m
+		[37m30 | [33m  network_rule_set {
+		[37m31 | [33m    default_action = "Deny"
+		[37m32 | [33m  }
+		[37m33 | [33m
+		[37m34 | [33m  lifecycle {
+		[37m35 | [33m    ignore_changes = [admin_enabled]
+		[37m36 | [33m  }
+		[37m37 | [33m}
+
+Check: CKV_AZURE_139: "Ensure ACR set to disable public networking"
+	FAILED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/ensure-azure-acr-is-set-to-disable-public-networking
+[0m
+		[37m23 | [33mresource "azurerm_container_registry" "acr" {
+		[37m24 | [33m  name                = "peerislandacr"
+		[37m25 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m26 | [33m  location            = azurerm_resource_group.rg.location
+		[37m27 | [33m  sku                 = "Premium"  # Premium required for retention_policy type
+		[37m28 | [33m  admin_enabled       = false
+		[37m29 | [33m
+		[37m30 | [33m  network_rule_set {
+		[37m31 | [33m    default_action = "Deny"
+		[37m32 | [33m  }
+		[37m33 | [33m
+		[37m34 | [33m  lifecycle {
+		[37m35 | [33m    ignore_changes = [admin_enabled]
+		[37m36 | [33m  }
+		[37m37 | [33m}
+
+Check: CKV_AZURE_164: "Ensures that ACR uses signed/trusted images"
+	FAILED for resource: azurerm_container_registry.acr
+	File: \main.tf:23-37
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-164
+[0m
+		[37m23 | [33mresource "azurerm_container_registry" "acr" {
+		[37m24 | [33m  name                = "peerislandacr"
+		[37m25 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m26 | [33m  location            = azurerm_resource_group.rg.location
+		[37m27 | [33m  sku                 = "Premium"  # Premium required for retention_policy type
+		[37m28 | [33m  admin_enabled       = false
+		[37m29 | [33m
+		[37m30 | [33m  network_rule_set {
+		[37m31 | [33m    default_action = "Deny"
+		[37m32 | [33m  }
+		[37m33 | [33m
+		[37m34 | [33m  lifecycle {
+		[37m35 | [33m    ignore_changes = [admin_enabled]
+		[37m36 | [33m  }
+		[37m37 | [33m}
+
+Check: CKV_AZURE_227: "Ensure that the AKS cluster encrypt temp disks, caches, and data flows between Compute and Storage resources"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azure-227
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+
+Check: CKV_AZURE_226: "Ensure ephemeral disks are used for OS disks"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azure-226
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+
+Check: CKV_AZURE_170: "Ensure that AKS use the Paid Sku for its SLA"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-170
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+
+Check: CKV_AZURE_141: "Ensure AKS local admin account is disabled"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-iam-policies/ensure-azure-kubernetes-service-aks-local-admin-account-is-disabled
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+
+Check: CKV_AZURE_4: "Ensure AKS logging to Azure Monitoring is Configured"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azr-kubernetes-1
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+
+Check: CKV_AZURE_232: "Ensure that only critical system pods run on system nodes"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/bc-azure-232
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+
+Check: CKV_AZURE_172: "Ensure autorotation of Secrets Store CSI Driver secrets for AKS clusters"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-general-policies/azr-general-172
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+
+Check: CKV_AZURE_171: "Ensure AKS cluster upgrade channel is chosen"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-networking-policies/azr-networking-171
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+
+Check: CKV_AZURE_116: "Ensure that AKS uses Azure Policies Add-on"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/ensure-that-aks-uses-azure-policies-add-on
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+
+Check: CKV_AZURE_117: "Ensure that AKS uses disk encryption set"
+	FAILED for resource: azurerm_kubernetes_cluster.aks
+	File: \main.tf:42-74
+	Guide: [1mhttps://docs.prismacloud.io/en/enterprise-edition/policy-reference/azure-policies/azure-kubernetes-policies/ensure-that-aks-uses-disk-encryption-set
+[0m
+		[37m42 | [33mresource "azurerm_kubernetes_cluster" "aks" {
+		[37m43 | [33m  name                = "peerisland-aks"
+		[37m44 | [33m  location            = azurerm_resource_group.rg.location
+		[37m45 | [33m  resource_group_name = azurerm_resource_group.rg.name
+		[37m46 | [33m  dns_prefix          = "peerisland-dns"
+		[37m47 | [33m
+		[37m48 | [33mdefault_node_pool {
+		[37m49 | [33m  name                 = "default"
+		[37m50 | [33m  node_count           = var.aks_node_count
+		[37m51 | [33m  vm_size              = "Standard_D2_v3"  # <-- Change to allowed size
+		[37m52 | [33m  enable_node_public_ip = false
+		[37m53 | [33m  os_disk_type         = "Managed"          # or "Ephemeral" if VM supports it
+		[37m54 | [33m  max_pods             = 50
+		[37m55 | [33m}
+		[37m56 | [33m
+		[37m57 | [33m
+		[37m58 | [33m  identity {
+		[37m59 | [33m    type = "SystemAssigned"
+		[37m60 | [33m  }
+		[37m61 | [33m
+		[37m62 | [33m  network_profile {
+		[37m63 | [33m    network_plugin    = "azure"
+		[37m64 | [33m    network_policy    = "azure"
+		[37m65 | [33m    load_balancer_sku = "standard"
+		[37m66 | [33m    outbound_type     = "loadBalancer"
+		[37m67 | [33m    service_cidr      = "10.0.0.0/16"
+		[37m68 | [33m    dns_service_ip    = "10.0.0.10"
+		[37m69 | [33m  }
+		[37m70 | [33m
+		[37m71 | [33m  private_cluster_enabled = true
+		[37m72 | [33m
+		[37m73 | [33m  depends_on = [azurerm_container_registry.acr]
+		[37m74 | [33m}
+

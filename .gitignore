@@ -1,0 +1,40 @@
+# -----------------------------
+# Terraform-related
+# -----------------------------
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+crash.log
+
+# -----------------------------
+# Azure and cloud credentials
+# -----------------------------
+*.pem
+*.key
+*.json
+
+# -----------------------------
+# Logs and temporary files
+# -----------------------------
+*.log
+*.bak
+*.tmp
+
+# -----------------------------
+# System/OS files
+# -----------------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# Editor-specific
+# -----------------------------
+.vscode/
+.idea/
+
+# -----------------------------
+# Helm / Kubernetes Cache
+# -----------------------------
+charts/
+tmp/

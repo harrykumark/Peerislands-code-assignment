@@ -1,3 +1,8 @@
-prefix = "peerisland"
-location = "eastus"
+prefix              = "peerisland"
+location            = "eastus"
 resource_group_name = "peerisland-rg"
+acr_sku             = "Standard"
+aks_node_count      = 3
+aks_vm_size         = "Standard_D2s_v3"
+allowed_aks_ips     = ["YOUR_IP/32"]
+
