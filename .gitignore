@@ -1,40 +1,22 @@
-# -----------------------------
-# Terraform-related
-# -----------------------------
+# Terraform
+.terraform/
 *.tfstate
 *.tfstate.backup
-.terraform/
 .terraform.lock.hcl
 crash.log
+*.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
 
-# -----------------------------
-# Azure and cloud credentials
-# -----------------------------
-*.pem
-*.key
-*.json
-
-# -----------------------------
-# Logs and temporary files
-# -----------------------------
+# Local files
 *.log
-*.bak
-*.tmp
 
-# -----------------------------
-# System/OS files
-# -----------------------------
-.DS_Store
-Thumbs.db
-
-# -----------------------------
-# Editor-specific
-# -----------------------------
+# IDEs
 .vscode/
 .idea/
 
-# -----------------------------
-# Helm / Kubernetes Cache
-# -----------------------------
-charts/
-tmp/
+# OS files
+.DS_Store
+Thumbs.db
